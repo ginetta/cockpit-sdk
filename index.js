@@ -59,6 +59,10 @@ class Cockpit {
   async regionFormData(region) {
     return this.fetchData(`/api/regions/data/${region}`, { method: "GET" });
   }
+
+  async assets() {
+    return this.fetchData(`/api/cockpit/assets`, { method: "GET" });
+  }
 }
 
 exports.Cockpit = Cockpit;
