@@ -15,7 +15,6 @@ class Cockpit {
     };
   }
 
-  // @param {string} apiPath
   async fetchData(apiPath, options) {
     const requestInit = {
       ...options,
@@ -28,6 +27,23 @@ class Cockpit {
     const json = await response.json();
 
     return json;
+  }
+
+  // @param {string} apiPath
+  async fetchDataText(apiPath, options, additionalOptions) {
+    const requestInit = {
+      ...options,
+      ...defaultOptions
+    };
+
+    const hostWithToken = `${this.host}${apiPath}?${qs.stringify(this.queryParams)}&${qs.stringify(additionalOptions)}`;
+
+    console.log(hostWithToken);
+    
+    const response = await fetch(hostWithToken, requestInit);
+    const result = await response.text();
+
+    return result;
   }
 
   // @param {string} collection
@@ -62,6 +78,15 @@ class Cockpit {
 
   async assets() {
     return this.fetchData(`/api/cockpit/assets`, { method: "GET" });
+  }
+
+  async image(assetId, width, height) {
+    return this.fetchDataText(`/api/cockpit/image`, { method: "GET" }, {
+      src: assetId,
+      w: width,
+      h: height,
+      d: 1
+    });
   }
 }
 
