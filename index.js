@@ -80,7 +80,7 @@ class Cockpit {
     return this.fetchData(`/api/cockpit/assets`, { method: "GET" });
   }
 
-  async image(assetId, width, height) {
+  async image(assetId, {width, height}) {
     return this.fetchDataText(`/api/cockpit/image`, { method: "GET" }, {
       src: assetId,
       w: width,
