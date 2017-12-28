@@ -45,6 +45,9 @@ Cockpit.region("regionName").data(console.log);
 | **regionData**       | `(regionName)`                 | Yes     |
 | **image**            | `(assetId, { width, height })` | Yes     |
 | **assets**           | `(options)`                    | Yes     |
+| **assets**           | `(options)`                    | Yes     |
+| **authUser**         | `(user, password)`             | Yes     |
+| **listUsers**        | `(options)`                    | Yes     |
 
 # Real-time
 

@@ -218,6 +218,22 @@ class CockpitSDK {
 			}
 		);
 	}
+
+	authUser(user, password) {
+		return this.fetchData("/api/cockpit/authUser", {
+			method: "GET",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify({user, password})
+		});
+	}
+
+	listUsers(options) {
+		return this.fetchData("/api/cockpit/authUser", {
+			method: "GET",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify({options})
+		});
+	}
 }
 
 module.exports = CockpitSDK;
