@@ -8,7 +8,7 @@
 
 ```sh
 npm install cockpit-sdk
-# Or
+# or
 yarn add cockpit-sdk
 ```
 
@@ -60,6 +60,9 @@ Cockpit.collection("portfolio").watch(data => console.log(data));
 ```
 
 ## Real-time Methods
+You will need a Websocket middleware server to use the real-time features.
+
+This SKD is working with [Cockpit-Real-time-Server](https://github.com/brunnolou/Cockpit-Real-time-Server)
 
 | Method               | Args                          |
 | -------------------- | ----------------------------- |
