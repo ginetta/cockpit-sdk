@@ -1,6 +1,5 @@
 import "babel-polyfill";
 import React, { Component } from "react";
-import logo from "./logo.svg";
 import "./App.css";
 
 import CockpitSDK from "cockpit-sdk";
@@ -59,24 +58,23 @@ class App extends Component {
 		return (
 			<div className="App">
 				<header className="App-header">
-					<img src={logo} className="App-logo" alt="logo" />
-					<h1 className="App-title">Welcome to React</h1>
+					<h1 className="App-title">Welcome Real-time Cockpit</h1>
 				</header>
-				<p className="App-intro">
-					To get started, edit <code>src/App.js</code> and save to reload.
-				</p>
-				<ul>
-					{Object.values(this.state.entries).map(x => (
-						<li key={x._id}>
-							<h3>{x.title}</h3>
-							<p>{x.description}</p>
-						</li>
-					))}
-				</ul>
 
-				<pre style={{ textAlign: "left" }}>
-					{JSON.stringify(this.state, null, "  ")}
-				</pre>
+				<main class="App-main">
+					<ul>
+						{Object.values(this.state.entries).map(x => (
+							<li key={x._id}>
+								<h3>{x.title}</h3>
+								<p>{x.description}</p>
+							</li>
+						))}
+					</ul>
+
+					<pre className="App-pre">
+						{JSON.stringify(this.state, null, "  ")}
+					</pre>
+				</main>
 			</div>
 		);
 	}
