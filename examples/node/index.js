@@ -5,6 +5,6 @@ const Cockpit = new CockpitSDK({
   accessToken: "12a3456b789c12d34567ef8a9bc01d"
 });
 
-Cockpit.collectionEntries("Portfolioitems", { limit: 3 }).then(data =>
+Cockpit.collectionEntries("posts", { limit: 3 }).then(data =>
   console.log(data)
 );

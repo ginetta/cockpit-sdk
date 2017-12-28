@@ -9,7 +9,7 @@ const protocolWs = protocol.replace("http", "ws");
 const Cockpit = new CockpitSDK({
 	host: protocol + "//" + hostname + ":8080",
 	websocket: protocolWs + "//" + hostname + ":4000",
-	accessToken: "5e7be6f3bba4c820bb79f11c430a69"
+	accessToken: "12a3456b789c12d34567ef8a9bc01d"
 });
 
 const toDictionary = (acc, entry) => ({ ...acc, [entry._id]: entry });
