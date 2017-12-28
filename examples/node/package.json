@@ -1,12 +1,12 @@
 {
-  "name": "cockpit-realtime-node-example",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "start": "node .",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "Bruno Lourenço",
-  "license": "MIT"
+	"name": "cockpit-realtime-node-example",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"start": "node .",
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"author": "Bruno Lourenço",
+	"license": "MIT"
 }

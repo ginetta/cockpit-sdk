@@ -9,12 +9,10 @@ const protocolWs = protocol.replace("http", "ws");
 const Cockpit = new CockpitSDK({
 	host: protocol + "//" + hostname + ":8080",
 	websocket: protocolWs + "//" + hostname + ":4000",
-	accessToken: "6e81a7db724a4ca585d3e5f8c5fa5c"
+	accessToken: "5e7be6f3bba4c820bb79f11c430a69"
 });
 
-Cockpit.collectionSchema('portfolio').then(console.log);
-
-const idFy = (acc, entry) => ({ ...acc, [entry._id]: entry });
+const toDictionary = (acc, entry) => ({ ...acc, [entry._id]: entry });
 
 class App extends Component {
 	state = {
@@ -32,17 +30,10 @@ class App extends Component {
 	}
 
 	componentWillMount() {
-		Cockpit.collection(
-			"portfolio",
-			{
-				filter: { published: true },
-				limit: 10
-			},
-			{}
-		)
-			.get(data => {
-				console.log("get: ", data);
-				const entries = data.entries.reduce(idFy, {});
+		Cockpit.collection("portfolio", { filter: { published: true }, limit: 10 })
+			.watch(data => {
+				console.log("watch: ", data);
+				const entries = data.entries.reduce(toDictionary, {});
 
 				this.setState({
 					...data,
@@ -60,7 +51,7 @@ class App extends Component {
 					<h1 className="App-title">Welcome Real-time Cockpit</h1>
 				</header>
 
-				<main class="App-main">
+				<main className="App-main">
 					<ul>
 						{Object.values(this.state.entries).map(x => (
 							<li key={x._id}>

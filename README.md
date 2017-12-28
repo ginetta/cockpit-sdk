@@ -20,24 +20,31 @@ const Cockpit = new CockpitSDK({
   accessToken: "12a3456b789c12d34567ef8a9bc01d"
 });
 
-Cockpit.collectionEntries("posts", { limit: 3 }).then(data =>
-  console.log(data)
-);
+Cockpit.collectionGet("posts", { limit: 3 }).then(data => console.log(data));
 // { "fields": {...}, "entries": [{...},{...},{...}], "total": 3 }
+
+// Or with the callback api:
+Cockpit.collection("posts", { limit: 3 }).get(console.log);
+Cockpit.region("regionName").data(console.log);
 ```
 
 ## Class methods
 
-All the following methods returns a promise:
-
-| Method                     | Args                           |
-| -------------------------- | ------------------------------ |
-| **collectionSchema**       | `(collectionName)`             |
-| **collectionEntries**      | `(collectionName, options)`    |
-| **regionRenderedTemplate** | `(regionName)`                 |
-| **regionFormData**         | `(regionName)`                 |
-| **image**                  | `(assetId, { width, height })` |
-| **assets**                 | –                              |
+| Method               | Args                           | Promise |
+| -------------------- | ------------------------------ | ------- |
+| **collectionSchema** | `(collectionName)`             | Yes     |
+| **collectionGet**    | `(collectionName, options)`    | Yes     |
+| **collection**       | `(collectionName, options)`    | -       |
+| collection.**get**   | `(success, error)`             | -       |
+| collection.**watch** | `(success, error)`             | -       |
+| collection.**on**    | `(eventName, success, error)`  | -       |
+| **region**           | `(regionName)`                 | -       |
+| region.**get**       | `(success, error)`             | -       |
+| region.**data**      | `(success, error)`             | -       |
+| **regionGet**        | `(regionName)`                 | Yes     |
+| **regionData**       | `(regionName)`                 | Yes     |
+| **image**            | `(assetId, { width, height })` | Yes     |
+| **assets**           | –                              | Yes     |
 
 # Real-time
 
@@ -48,26 +55,27 @@ The `collection` method fetches the data on call and on every collection update.
 The real-time methods expects callback functions instead of a promise.
 
 ```js
-Cockpit.collection("portfolio").get(data => console.log(data));
+Cockpit.collection("portfolio").watch(data => console.log(data));
 // { "fields": {...}, "entries": [{...},{...},{...}], "total": … }
 ```
 
 ## Real-time Methods
 
-| Method             | Args                          |
-| ------------------ | ----------------------------- |
-| **collection**     | `(collectionName, options)`   |
-| collection.**get** | `(success, error)`            |
-| collection.**on**  | `(eventName, success, error)` |
+| Method               | Args                          |
+| -------------------- | ----------------------------- |
+| **collection**       | `(collectionName, options)`   |
+| collection.**get**   | `(success, error)`            |
+| collection.**watch** | `(success, error)`            |
+| collection.**on**    | `(eventName, success, error)` |
 
 ```js
 Cockpit.collection("portfolio")
-  .get(console.log) // { "entries": […], "fields": {...}, "total": … }
+  .watch(console.log) // { "entries": […], "fields": {...}, "total": … }
   .on("save", console.log) // { entry: {...}, collection: '', event: '' }
   .on("preview", console.log); // { entry: {...}, collection: '', event: '' }
 ```
 
-> _Note that the `.get` method returns the **whole entries** and the `.on` method just **one entry**_
+> _Note that the `.watch` and `.get` methods returns the **whole entries** and the `.on` method just **one entry**_
 
 ## Event names
 

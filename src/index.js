@@ -66,9 +66,15 @@ class CockpitSDK {
 		});
 	}
 
+	collectionList(collectionName) {
+		return this.fetchData(`/api/collections/listCollections`, {
+			method: "GET"
+		});
+	}
+
 	// @param {string} collectionName
 	// @param {Request} options
-	collectionEntries(collectionName, options) {
+	collectionGet(collectionName, options) {
 		return this.fetchData(`/api/collections/get/${collectionName}`, {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
@@ -80,11 +86,39 @@ class CockpitSDK {
 	// @param {Request} options
 	collection(collectionName, options) {
 		const api = {
+			save: (success, error) => {
+				console.warn('collection.().save() not implemented yet');
+
+				return api;
+			},
+
+			remove: (success, error) => {
+				console.warn('collection.().remove() not implemented yet');
+
+				return api;
+			},
+
+			get: (success, error) => {
+				this.collectionGet(collectionName, options)
+					.then(success)
+					.catch(error);
+
+				return api;
+			},
+
+			schema: (success, error) => {
+				this.collectionSchema(collectionName, options)
+					.then(success)
+					.catch(error);
+
+				return api;
+			},
+
 			// @param {function} success
 			// @param {function} error
-			get: (success, error) => {
+			watch: (success, error) => {
 				const getCollection = () =>
-					this.collectionEntries(collectionName, options)
+					this.collectionGet(collectionName, options)
 						.then(success)
 						.catch(error);
 
@@ -124,13 +158,44 @@ class CockpitSDK {
 	}
 
 	// @param {string} regionName
-	regionRenderedTemplate(regionName) {
-		return this.fetchData(`/api/regions/get/${regionName}`, { method: "GET" });
+	regionGet(regionName) {
+		return this.fetchDataText(`/api/regions/get/${regionName}`, {
+			method: "GET"
+		});
+	}
+
+	regionList() {
+		return this.fetchDataText(`/api/regions/listRegions`, {
+			method: "GET"
+		});
 	}
 
 	// @param {string} regionName
-	regionFormData(regionName) {
+	regionData(regionName) {
 		return this.fetchData(`/api/regions/data/${regionName}`, { method: "GET" });
+	}
+
+	// @param {string} collectionName
+	region(regionName) {
+		const api = {
+			data: (success, error) => {
+				this.regionData(regionName)
+					.then(success)
+					.catch(error);
+
+				return api;
+			},
+
+			get: (success, error) => {
+				this.regionGet(regionName)
+					.then(success)
+					.catch(error);
+
+				return api;
+			}
+		};
+
+		return api;
 	}
 
 	assets() {
