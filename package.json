@@ -1,23 +1,41 @@
 {
-  "name": "cockpit-api-client",
-  "version": "1.0.3",
-  "description": "Cockpit headless CMS API client",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/mpartipilo/cockpit-api-client.git"
-  },
-  "author": "Michelangelo Partipilo <michelangelo.partipilo@gmail.com>",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/mpartipilo/cockpit-api-client/issues"
-  },
-  "homepage": "https://github.com/mpartipilo/cockpit-api-client#readme",
-  "dependencies": {
-    "node-fetch": "^1.7.3",
-    "query-string": "^5.0.1"
-  }
+	"name": "cockpit-sdk",
+	"version": "0.0.1",
+	"description": "Javascript SDK for Cockpit headless CMS",
+	"main": "lib/index.js",
+	"scripts": {
+		"build": "make build",
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/brunnolou/cockpit-sdk.git"
+	},
+	"author": "Michelangelo Partipilo <michelangelo.partipilo@gmail.com>",
+	"contributors": [
+		"Bruno Lourenço"
+	],
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/brunnolou/cockpit-sdk/issues"
+	},
+	"homepage": "https://github.com/brunnolou/cockpit-sdk#readme",
+	"dependencies": {
+		"babel-polyfill": "^6.26.0",
+		"es6-promise": "^4.1.1",
+		"isomorphic-fetch": "^2.2.1",
+		"query-string": "^5.0.1"
+	},
+	"devDependencies": {
+		"babel-cli": "^6.26.0",
+		"babel-eslint": "7",
+		"babel-plugin-transform-class-properties": "^6.24.1",
+		"babel-plugin-transform-object-rest-spread": "^6.26.0",
+		"babel-plugin-transform-regenerator": "^6.26.0",
+		"babel-preset-env": "^1.6.1",
+		"eslint": "3.x",
+		"eslint-config-airbnb-base": "^12.1.0",
+		"eslint-plugin-import": "^2.8.0",
+		"uglify-js": "^3.2.2"
+	}
 }
