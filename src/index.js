@@ -13,9 +13,9 @@ const defaultOptions = {
 
 class CockpitSDK {
 	static events = {
-		SAVE: 'save',
-		PREVIEW: 'preview',
-	}
+		SAVE: "save",
+		PREVIEW: "preview"
+	};
 
 	constructor({ host, accessToken, lang, websocket }) {
 		this.host = host;
@@ -32,7 +32,7 @@ class CockpitSDK {
 		}
 	}
 
-	async fetchData(apiPath, options) {
+	fetchData(apiPath, options) {
 		const requestInit = {
 			...options,
 			...defaultOptions
@@ -42,14 +42,11 @@ class CockpitSDK {
 			this.queryParams
 		)}`;
 
-		const response = await fetch(hostWithToken, requestInit);
-		const json = await response.json();
-
-		return json;
+		return fetch(hostWithToken, requestInit).then(x => x.json());
 	}
 
 	// @param {string} apiPath
-	async fetchDataText(apiPath, options, additionalOptions) {
+	fetchDataText(apiPath, options, additionalOptions) {
 		const requestInit = {
 			...options,
 			...defaultOptions
@@ -58,14 +55,12 @@ class CockpitSDK {
 		const hostWithToken = `${this.host}${apiPath}?${qs.stringify(
 			this.queryParams
 		)}&${qs.stringify(additionalOptions)}`;
-		const response = await fetch(hostWithToken, requestInit);
-		const result = await response.text();
 
-		return result;
+		return fetch(hostWithToken, requestInit).then(x => x.text());
 	}
 
 	// @param {string} collectionName
-	async collectionSchema(collectionName) {
+	collectionSchema(collectionName) {
 		return this.fetchData(`/api/collections/collection/${collectionName}`, {
 			method: "GET"
 		});
@@ -73,7 +68,7 @@ class CockpitSDK {
 
 	// @param {string} collectionName
 	// @param {Request} options
-	async collectionEntries(collectionName, options) {
+	collectionEntries(collectionName, options) {
 		return this.fetchData(`/api/collections/get/${collectionName}`, {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
@@ -100,7 +95,7 @@ class CockpitSDK {
 				);
 
 				this.websocket.on(
-					CockpitRealTime.events.COLLECTIONS_SAVE_AFTER + '.' + collectionName,
+					CockpitRealTime.events.COLLECTIONS_SAVE_AFTER + "." + collectionName,
 					getCollection,
 					error
 				);
@@ -129,20 +124,20 @@ class CockpitSDK {
 	}
 
 	// @param {string} regionName
-	async regionRenderedTemplate(regionName) {
+	regionRenderedTemplate(regionName) {
 		return this.fetchData(`/api/regions/get/${regionName}`, { method: "GET" });
 	}
 
 	// @param {string} regionName
-	async regionFormData(regionName) {
+	regionFormData(regionName) {
 		return this.fetchData(`/api/regions/data/${regionName}`, { method: "GET" });
 	}
 
-	async assets() {
+	assets() {
 		return this.fetchData("/api/cockpit/assets", { method: "GET" });
 	}
 
-	async image(assetId, { width, height }) {
+	image(assetId, { width, height }) {
 		return this.fetchDataText(
 			"/api/cockpit/image",
 			{ method: "GET" },

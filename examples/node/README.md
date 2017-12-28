@@ -1,0 +1,5 @@
+# Node example
+
+```
+npm install
+```

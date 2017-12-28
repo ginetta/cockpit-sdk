@@ -1,16 +1,15 @@
-import "babel-polyfill";
 import React, { Component } from "react";
 import "./App.css";
 
-import CockpitSDK from "cockpit-sdk";
+import CockpitSDK from "./lib";
 
-const { protocol, hostname, port } = window.location;
+const { protocol, hostname } = window.location;
 const protocolWs = protocol.replace("http", "ws");
 
 const Cockpit = new CockpitSDK({
 	host: protocol + "//" + hostname + ":8080",
 	websocket: protocolWs + "//" + hostname + ":4000",
-	accessToken: "12a3456b789c12d34567ef8a9bc01d"
+	accessToken: "6e81a7db724a4ca585d3e5f8c5fa5c"
 });
 
 Cockpit.collectionSchema('portfolio').then(console.log);
