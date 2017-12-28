@@ -2,6 +2,8 @@
 
 #### A Javascript SDK for [Cockpit Headless CMS](https://github.com/agentejo/cockpit)
 
+[![npm version](https://badge.fury.io/js/cockpit-sdk.svg?v2)](https://www.npmjs.com/package/cockpit-sdk)
+
 ## Usage
 
 ```sh
@@ -68,9 +70,11 @@ Cockpit.collection("portfolio")
 > _Note that the `.get` method returns the **whole entries** and the `.on` method just **one entry**_
 
 ## Event names
+
 ```js
-Cockpit.collection("portfolio").on(eventName)
+Cockpit.collection("portfolio").on(eventName);
 ```
+
 | Events  |
 | ------- |
 | save    |
