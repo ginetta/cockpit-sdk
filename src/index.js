@@ -198,8 +198,12 @@ class CockpitSDK {
 		return api;
 	}
 
-	assets() {
-		return this.fetchData("/api/cockpit/assets", { method: "GET" });
+	assets(options) {
+		return this.fetchData("/api/cockpit/assets", {
+			method: "GET",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify(options)
+		});
 	}
 
 	image(assetId, { width, height }) {
@@ -213,6 +217,22 @@ class CockpitSDK {
 				d: 1
 			}
 		);
+	}
+
+	authUser(user, password) {
+		return this.fetchData("/api/cockpit/authUser", {
+			method: "GET",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify({user, password})
+		});
+	}
+
+	listUsers(options) {
+		return this.fetchData("/api/cockpit/authUser", {
+			method: "GET",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify({options})
+		});
 	}
 }
 
