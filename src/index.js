@@ -32,7 +32,7 @@ class CockpitSDK {
 		}
 	}
 
-	fetchData(apiPath, options) {
+	fetchData(apiPath, options, queryParams) {
 		const requestInit = {
 			...options,
 			...defaultOptions
@@ -40,13 +40,13 @@ class CockpitSDK {
 
 		const hostWithToken = `${this.host}${apiPath}?${qs.stringify(
 			this.queryParams
-		)}`;
+		)}&${qs.stringify(queryParams)}`;
 
 		return fetch(hostWithToken, requestInit).then(x => x.json());
 	}
 
 	// @param {string} apiPath
-	fetchDataText(apiPath, options, additionalOptions) {
+	fetchDataText(apiPath, options, queryParams) {
 		const requestInit = {
 			...options,
 			...defaultOptions
@@ -54,7 +54,7 @@ class CockpitSDK {
 
 		const hostWithToken = `${this.host}${apiPath}?${qs.stringify(
 			this.queryParams
-		)}&${qs.stringify(additionalOptions)}`;
+		)}&${qs.stringify(queryParams)}`;
 
 		return fetch(hostWithToken, requestInit).then(x => x.text());
 	}
@@ -87,13 +87,13 @@ class CockpitSDK {
 	collection(collectionName, options) {
 		const api = {
 			save: (success, error) => {
-				console.warn('collection.().save() not implemented yet');
+				console.warn("collection.().save() not implemented yet");
 
 				return api;
 			},
 
 			remove: (success, error) => {
-				console.warn('collection.().remove() not implemented yet');
+				console.warn("collection.().remove() not implemented yet");
 
 				return api;
 			},
@@ -199,14 +199,17 @@ class CockpitSDK {
 	}
 
 	assets(options) {
-		return this.fetchData("/api/cockpit/assets", {
-			method: "GET",
-			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify(options)
-		});
+		return this.fetchData(
+			"/api/cockpit/assets",
+			{
+				method: "GET",
+				headers: { "Content-Type": "application/json" }
+			},
+			options
+		);
 	}
 
-	image(assetId, { width, height }) {
+	image(assetId, { width, height, quality }) {
 		return this.fetchDataText(
 			"/api/cockpit/image",
 			{ method: "GET" },
@@ -214,6 +217,7 @@ class CockpitSDK {
 				src: assetId,
 				w: width,
 				h: height,
+				q: quality,
 				d: 1
 			}
 		);
@@ -221,18 +225,17 @@ class CockpitSDK {
 
 	authUser(user, password) {
 		return this.fetchData("/api/cockpit/authUser", {
-			method: "GET",
+			method: "POST",
 			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify({user, password})
+			body: JSON.stringify({ user, password })
 		});
 	}
 
 	listUsers(options) {
-		return this.fetchData("/api/cockpit/authUser", {
+		return this.fetchData("/api/cockpit/listUsers", {
 			method: "GET",
 			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify({options})
-		});
+		}, options);
 	}
 }
 
