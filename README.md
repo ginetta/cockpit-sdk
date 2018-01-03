@@ -30,23 +30,23 @@ Cockpit.region("regionName").data(console.log);
 
 ## Class methods
 
-| Method               | Args                           | Promise |
-| -------------------- | ------------------------------ | ------- |
-| **collectionSchema** | `(collectionName)`             | Yes     |
-| **collectionGet**    | `(collectionName, options)`    | Yes     |
-| **collection**       | `(collectionName, options)`    | -       |
-| collection.**get**   | `(success, error)`             | -       |
-| collection.**watch** | `(success, error)`             | -       |
-| collection.**on**    | `(eventName, success, error)`  | -       |
-| **region**           | `(regionName)`                 | -       |
-| region.**get**       | `(success, error)`             | -       |
-| region.**data**      | `(success, error)`             | -       |
-| **regionGet**        | `(regionName)`                 | Yes     |
-| **regionData**       | `(regionName)`                 | Yes     |
-| **image**            | `(assetId, { width, height })` | Yes     |
-| **assets**           | `(options)`                    | Yes     |
-| **authUser**         | `(user, password)`             | Yes     |
-| **listUsers**        | `(options)`                    | Yes     |
+| Method               | Args                                    | Promise |
+| -------------------- | --------------------------------------- | ------- |
+| **collectionSchema** | `(collectionName)`                      | Yes     |
+| **collectionGet**    | `(collectionName, options)`             | Yes     |
+| **collection**       | `(collectionName, options)`             | -       |
+| collection.**get**   | `(success, error)`                      | -       |
+| collection.**watch** | `(success, error)`                      | -       |
+| collection.**on**    | `(eventName, success, error)`           | -       |
+| **region**           | `(regionName)`                          | -       |
+| region.**get**       | `(success, error)`                      | -       |
+| region.**data**      | `(success, error)`                      | -       |
+| **regionGet**        | `(regionName)`                          | Yes     |
+| **regionData**       | `(regionName)`                          | Yes     |
+| **image**            | `(assetId, { width, height, quality })` | Yes     |
+| **assets**           | `(options)`                             | Yes     |
+| **authUser**         | `(user, password)`                      | Yes     |
+| **listUsers**        | `(options)`                             | Yes     |
 
 # Real-time
 
@@ -62,6 +62,7 @@ Cockpit.collection("portfolio").watch(data => console.log(data));
 ```
 
 ## Real-time Methods
+
 You will need a Websocket middleware server to use the real-time features.
 
 This SKD is working with [Cockpit-Real-time-Server](https://github.com/brunnolou/Cockpit-Real-time-Server)
