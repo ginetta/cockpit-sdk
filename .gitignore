@@ -58,3 +58,4 @@ typings/
 .env
 .cache
 
+.DS_Store
