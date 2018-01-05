@@ -15,11 +15,15 @@
     "eject": "react-scripts eject"
   },
   "devDependencies": {
-    "babel-eslint": "7",
-    "eslint": "3.x",
+    "babel-eslint": "^8.1.2",
+    "eslint": "^4.14.0",
     "eslint-config-airbnb": "^16.1.0",
+    "eslint-config-prettier": "^2.9.0",
     "eslint-plugin-import": "^2.8.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
-    "eslint-plugin-react": "^7.5.1"
+    "eslint-plugin-prettier": "^2.4.0",
+    "eslint-plugin-react": "^7.5.1",
+    "prettier": "^1.9.2",
+    "prettier-eslint": "^8.7.0"
   }
 }
