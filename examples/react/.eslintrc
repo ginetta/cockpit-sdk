@@ -1,7 +1,37 @@
-{
-  "extends": "airbnb",
-  "parser": "babel-eslint",
-  "rules": {
-    "strict": 0
-  }
-}
+parserOptions:
+  ecmaVersion: 2016
+  sourceType: module
+  ecmaFeatures:
+    jsx: true
+env:
+  es6: true
+  browser: true
+  node: true
+extends:
+  - airbnb
+  - 'plugin:react/recommended'
+  - prettier/react
+  - prettier
+plugins:
+  - prettier
+  - react
+rules:
+  prettier/prettier: error
+  react/jsx-filename-extension:
+    - 1
+    - extensions:
+        - .js
+        - .jsx
+  no-underscore-dangle:
+    - error
+    - allow:
+        - _id
+        - _modified
+        - _created
+        - _order
+        - _by
+  jsx-a11y/href-no-hash: off
+  jsx-a11y/anchor-is-valid:
+    - warn
+    - aspects:
+        - invalidHref
