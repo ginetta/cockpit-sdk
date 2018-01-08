@@ -44,7 +44,8 @@ class CockpitRealTime {
     this.websocket.addEventListener('message', message => {
       const response = JSON.parse(message.data);
 
-      if (response.event !== event) return;
+      if (response.event.replace(CockpitRealTime.eventPrefix, '') !== event)
+        return;
 
       success({
         ...response,
