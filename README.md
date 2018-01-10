@@ -28,21 +28,7 @@ Cockpit.collection("posts", { limit: 3 }).get(console.log);
 Cockpit.region("regionName").data(console.log);
 ```
 
-## Class methods
-
-### Collections
-
-**options:**
-
-```js
-{
-  filter: { published: true }, // mongoDB Operators.
-  populate: 1 // Resolve linked collection items.
-  limit,
-  skip,
-  sort: { _created: -1 },
-}
-```
+## Collections
 
 | Method               | Args                          | Promise |
 | -------------------- | ----------------------------- | ------- |
@@ -53,38 +39,50 @@ Cockpit.region("regionName").data(console.log);
 | collection.**watch** | `(success, error)`            | -       |
 | collection.**on**    | `(eventName, success, error)` | -       |
 
-### Assets
+- **options:**
 
-| Method          | Args                                                  | Promise |
-| --------------- | ----------------------------------------------------- | ------- |
-| **image**       | `(assetId | assetPath, imageOptions)`                 | -       |
-| **imageSrcSet** | `(assetId | assetPath, widthsArray | [imageOptions])` | -       |
-| **imageGet**    | `(assetId | assetPath, imageOptions)`                 | Yes     |
-| **assets**      | `(options)`                                           | Yes     |
+  ```js
+  {
+    filter: { published: true }, // mongoDB Operators.
+    populate: 1 // Resolve linked collection items.
+    limit,
+    skip,
+    sort: { _created: -1 },
+  }
+  ```
 
-**imageOptions:**
+## Assets
 
-```js
-{
-  width,
-  height,
-  quality: 85,
-  mode: 'thumbnail' | 'bestFit' | 'resize' | 'fitToWidth' | 'fitToHeight',
-  // Filters:
-  blur, brighten, colorize, contrast, darken, desaturate,
-  emboss, flip, invert, opacity, pixelate,
-  sepia, sharpen, sketch
-}
-```
+| Method          | Args                                                    | Promise |
+| --------------- | ------------------------------------------------------- | ------- |
+| **image**       | `(assetId OR assetPath, imageOptions)`                  | -       |
+| **imageSrcSet** | `(assetId OR assetPath, widthsArray OR [imageOptions])` | -       |
+| **imageGet**    | `(assetId OR assetPath, imageOptions)`                  | Yes     |
+| **assets**      | `(options)`                                             | Yes     |
 
-### User
+- **imageOptions:**
+
+  ```js
+  {
+    width,
+    height,
+    quality: 85,
+    mode: 'thumbnail' | 'bestFit' | 'resize' | 'fitToWidth' | 'fitToHeight',
+    // Filters:
+    blur, brighten, colorize, contrast, darken, desaturate,
+    emboss, flip, invert, opacity, pixelate,
+    sepia, sharpen, sketch
+  }
+  ```
+
+## User
 
 | Method        | Args               | Promise |
 | ------------- | ------------------ | ------- |
 | **authUser**  | `(user, password)` | Yes     |
 | **listUsers** | `(options)`        | Yes     |
 
-### Regions
+## Regions
 
 | Method          | Args               | Promise |
 | --------------- | ------------------ | ------- |
