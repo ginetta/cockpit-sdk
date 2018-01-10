@@ -211,7 +211,7 @@ class CockpitSDK {
     );
   }
 
-  image(assetId, { width, height, quality }) {
+  imageGet(assetId, { width, height, quality }) {
     return this.fetchDataText(
       '/api/cockpit/image',
       { method: 'GET' },
@@ -223,6 +223,38 @@ class CockpitSDK {
         d: 1,
       },
     );
+  }
+
+  image(assetId, options = {}) {
+    const { width, height, quality, ...rest } = options;
+
+    if (!options || options === {}) return `${this.host}/${assetId}}`;
+
+    return `${this.host}/api/cockpit/image?${qs.stringify({
+      ...this.queryParams,
+      src: assetId,
+      w: width,
+      h: height,
+      q: quality,
+      d: 1,
+      o: 1,
+      ...rest,
+    })}`;
+  }
+
+  imageSrcSet(assetId, widths = []) {
+    if (!widths) return '';
+
+    return widths
+      .map(width => {
+        if (typeof width === 'object')
+          return `${this.imagePath(assetId, width)} ${
+            width.srcSet || width.width ? `${width.width}w` : ''
+          }`;
+
+        return `${this.imagePath(assetId, { width })} ${width}w`;
+      })
+      .join(', ');
   }
 
   authUser(user, password) {

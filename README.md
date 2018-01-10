@@ -30,23 +30,69 @@ Cockpit.region("regionName").data(console.log);
 
 ## Class methods
 
-| Method               | Args                                    | Promise |
-| -------------------- | --------------------------------------- | ------- |
-| **collectionSchema** | `(collectionName)`                      | Yes     |
-| **collectionGet**    | `(collectionName, options)`             | Yes     |
-| **collection**       | `(collectionName, options)`             | -       |
-| collection.**get**   | `(success, error)`                      | -       |
-| collection.**watch** | `(success, error)`                      | -       |
-| collection.**on**    | `(eventName, success, error)`           | -       |
-| **region**           | `(regionName)`                          | -       |
-| region.**get**       | `(success, error)`                      | -       |
-| region.**data**      | `(success, error)`                      | -       |
-| **regionGet**        | `(regionName)`                          | Yes     |
-| **regionData**       | `(regionName)`                          | Yes     |
-| **image**            | `(assetId, { width, height, quality })` | Yes     |
-| **assets**           | `(options)`                             | Yes     |
-| **authUser**         | `(user, password)`                      | Yes     |
-| **listUsers**        | `(options)`                             | Yes     |
+### Collections
+
+**options:**
+
+```js
+{
+  filter: { published: true }, // mongoDB Operators.
+  populate: 1 // Resolve linked collection items.
+  limit,
+  skip,
+  sort: { _created: -1 },
+}
+```
+
+| Method               | Args                          | Promise |
+| -------------------- | ----------------------------- | ------- |
+| **collectionSchema** | `(collectionName)`            | Yes     |
+| **collectionGet**    | `(collectionName, options)`   | Yes     |
+| **collection**       | `(collectionName, options)`   | -       |
+| collection.**get**   | `(success, error)`            | -       |
+| collection.**watch** | `(success, error)`            | -       |
+| collection.**on**    | `(eventName, success, error)` | -       |
+
+### Assets
+
+| Method          | Args                                                  | Promise |
+| --------------- | ----------------------------------------------------- | ------- |
+| **image**       | `(assetId | assetPath, imageOptions)`                 | -       |
+| **imageSrcSet** | `(assetId | assetPath, widthsArray | [imageOptions])` | -       |
+| **imageGet**    | `(assetId | assetPath, imageOptions)`                 | Yes     |
+| **assets**      | `(options)`                                           | Yes     |
+
+**imageOptions:**
+
+```js
+{
+  width,
+  height,
+  quality: 85,
+  mode: 'thumbnail' | 'bestFit' | 'resize' | 'fitToWidth' | 'fitToHeight',
+  // Filters:
+  blur, brighten, colorize, contrast, darken, desaturate,
+  emboss, flip, invert, opacity, pixelate,
+  sepia, sharpen, sketch
+}
+```
+
+### User
+
+| Method        | Args               | Promise |
+| ------------- | ------------------ | ------- |
+| **authUser**  | `(user, password)` | Yes     |
+| **listUsers** | `(options)`        | Yes     |
+
+### Regions
+
+| Method          | Args               | Promise |
+| --------------- | ------------------ | ------- |
+| **region**      | `(regionName)`     | -       |
+| region.**get**  | `(success, error)` | -       |
+| region.**data** | `(success, error)` | -       |
+| **regionGet**   | `(regionName)`     | Yes     |
+| **regionData**  | `(regionName)`     | Yes     |
 
 # Real-time
 
