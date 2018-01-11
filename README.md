@@ -30,16 +30,16 @@ Cockpit.region("regionName").data(console.log);
 
 ## Collections
 
-| Method               | Args                          | Promise |
+| Method               | Args                          | Return  |
 | -------------------- | ----------------------------- | ------- |
-| **collectionSchema** | `(collectionName)`            | Yes     |
-| **collectionGet**    | `(collectionName, options)`   | Yes     |
+| **collectionSchema** | `(collectionName)`            | Promise |
+| **collectionGet**    | `(collectionName, options)`   | Promise |
 | **collection**       | `(collectionName, options)`   | -       |
 | collection.**get**   | `(success, error)`            | -       |
 | collection.**watch** | `(success, error)`            | -       |
 | collection.**on**    | `(eventName, success, error)` | -       |
 
-- **options:**
+* **options:**
 
   ```js
   {
@@ -53,15 +53,14 @@ Cockpit.region("regionName").data(console.log);
 
 ## Assets
 
-| Method          | Args                                                    | Promise |
-| --------------- | ------------------------------------------------------- | ------- |
-| **image**       | `(assetId OR assetPath, imageOptions)`                  | -       |
-| **imageSrcSet** | `(assetId OR assetPath, widthsArray OR [imageOptions])` | -       |
-| **imageGet**    | `(assetId OR assetPath, imageOptions)`                  | Yes     |
-| **assets**      | `(options)`                                             | Yes     |
+| Method          | Args                                                  | Return                     |
+| --------------- | ----------------------------------------------------- | -------------------------- |
+| **image**       | `(assetId OR assetPath, imageOptions OR widthsArray)` | Path String OR Paths Array |
+| **imageSrcSet** | `(assetId OR assetPath, widthsArray)`                 | Paths Array                |
+| **imageGet**    | `(assetId OR assetPath, imageOptions)`                | Promise                    |
+| **assets**      | `(options)`                                           | Promise                    |
 
-- **imageOptions:**
-
+* **imageOptions:**
   ```js
   {
     width,
@@ -74,23 +73,47 @@ Cockpit.region("regionName").data(console.log);
     sepia, sharpen, sketch
   }
   ```
+* **widthsArray:**
+  ```js
+  [
+    100, // Width
+    {
+      srcSet: "100w" | "2x" | "(max-width: 30em)",
+      ...imageOptions
+    }
+  ];
+  ```
+
+When `image` method receives an array as second argument it will behave as `imageSrcSet`.
+
+**Example:**
+
+```js
+Cockpit.image(path, { width: 8 });
+Cockpit.image(path, [100, 480, 960]);
+Cockpit.image(path, [
+  100,
+  { width: 480, height: 480 },
+  { width: 960, srcSet: "(max-width: 30em)" }
+]);
+```
 
 ## User
 
-| Method        | Args               | Promise |
+| Method        | Args               | Return  |
 | ------------- | ------------------ | ------- |
-| **authUser**  | `(user, password)` | Yes     |
-| **listUsers** | `(options)`        | Yes     |
+| **authUser**  | `(user, password)` | Promise |
+| **listUsers** | `(options)`        | Promise |
 
 ## Regions
 
-| Method          | Args               | Promise |
+| Method          | Args               | Return  |
 | --------------- | ------------------ | ------- |
 | **region**      | `(regionName)`     | -       |
 | region.**get**  | `(success, error)` | -       |
 | region.**data** | `(success, error)` | -       |
-| **regionGet**   | `(regionName)`     | Yes     |
-| **regionData**  | `(regionName)`     | Yes     |
+| **regionGet**   | `(regionName)`     | Promise |
+| **regionData**  | `(regionName)`     | Promise |
 
 # Real-time
 

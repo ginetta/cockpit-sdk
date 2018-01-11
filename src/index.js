@@ -226,9 +226,12 @@ class CockpitSDK {
   }
 
   image(assetId, options = {}) {
-    const { width, height, quality, ...rest } = options;
+    if (!options || options === {} || options === [])
+      return `${this.host}/${assetId}}`;
 
-    if (!options || options === {}) return `${this.host}/${assetId}}`;
+    if (Array.isArray(options)) return this.imageSrcSet(assetId, options);
+
+    const { width, height, quality, ...rest } = options;
 
     return `${this.host}/api/cockpit/image?${qs.stringify({
       ...this.queryParams,
@@ -246,13 +249,13 @@ class CockpitSDK {
     if (!widths) return '';
 
     return widths
-      .map(width => {
+      .map(({ srcSet, ...width }) => {
         if (typeof width === 'object')
-          return `${this.imagePath(assetId, width)} ${
-            width.srcSet || width.width ? `${width.width}w` : ''
+          return `${this.image(assetId, width)} ${
+            srcSet || width.width ? `${width.width}w` : ''
           }`;
 
-        return `${this.imagePath(assetId, { width })} ${width}w`;
+        return `${this.image(assetId, { width })} ${width}w`;
       })
       .join(', ');
   }
