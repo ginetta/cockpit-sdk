@@ -39,9 +39,9 @@ Cockpit.region("regionName").data(console.log);
 | collection.**watch** | `(success, error)`            | -       |
 | collection.**on**    | `(eventName, success, error)` | -       |
 
-* **options:**
+<details><summary><b>options:</b></summary><p>
 
-  ```js
+```js
   {
     filter: { published: true }, // mongoDB Operators.
     populate: 1 // Resolve linked collection items.
@@ -49,7 +49,9 @@ Cockpit.region("regionName").data(console.log);
     skip,
     sort: { _created: -1 },
   }
-  ```
+```
+
+</p></details>
 
 ## Assets
 
@@ -60,43 +62,55 @@ Cockpit.region("regionName").data(console.log);
 | **imageGet**    | `(assetId OR assetPath, imageOptions)`                | Promise                    |
 | **assets**      | `(options)`                                           | Promise                    |
 
-* **imageOptions:**
-  ```js
+<details><summary><b>imageOptions:</b></summary><p>
+
+```js
+{
+  width,
+  height,
+  quality: 85,
+  mode: 'thumbnail' | 'bestFit' | 'resize' | 'fitToWidth' | 'fitToHeight',
+  // Filters:
+  blur, brighten, colorize, contrast, darken, desaturate,
+  emboss, flip, invert, opacity, pixelate,
+  sepia, sharpen, sketch
+}
+```
+
+</p></details>
+
+<details><summary><b>widthsArray:</b></summary><p>
+
+```js
+[
+  100, // Width
   {
-    width,
-    height,
-    quality: 85,
-    mode: 'thumbnail' | 'bestFit' | 'resize' | 'fitToWidth' | 'fitToHeight',
-    // Filters:
-    blur, brighten, colorize, contrast, darken, desaturate,
-    emboss, flip, invert, opacity, pixelate,
-    sepia, sharpen, sketch
+    srcSet: "100w" | "2x" | "(max-width: 30em)",
+    ...imageOptions
   }
-  ```
-* **widthsArray:**
-  ```js
-  [
-    100, // Width
-    {
-      srcSet: "100w" | "2x" | "(max-width: 30em)",
-      ...imageOptions
-    }
-  ];
-  ```
+];
+```
+
+</p></details>
 
 When `image` method receives an array as second argument it will behave as `imageSrcSet`.
 
-**Example:**
+<details><summary><b>Example:</b></summary><p>
 
 ```js
-Cockpit.image(path, { width: 8 });
+Cockpit.image(path); // original/path.jpg
+Cockpit.image(path, { width: 100 });
 Cockpit.image(path, [100, 480, 960]);
 Cockpit.image(path, [
   100,
   { width: 480, height: 480 },
   { width: 960, srcSet: "(max-width: 30em)" }
 ]);
+// ['?src=path.jpg&w=100 100w', '?src=path.jpg&w=480&h=480 480w', '?src=path.jpg&w=960 (max-width: 30em)']
+
 ```
+
+</p></details>
 
 ## User
 
@@ -125,6 +139,7 @@ The real-time methods expects callback functions instead of a promise.
 
 ```js
 Cockpit.collection("portfolio").watch(data => console.log(data));
+
 // { "fields": {...}, "entries": [{...},{...},{...}], "total": … }
 ```
 
