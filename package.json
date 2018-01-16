@@ -1,51 +1,52 @@
 {
-	"name": "cockpit-sdk",
-	"version": "0.4.0",
-	"description": "Javascript SDK for Cockpit headless CMS",
-	"main": "lib/index.js",
-	"scripts": {
-		"build": "make build",
-		"test": "echo \"Error: no test specified\" && exit 1"
-	},
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/brunnolou/cockpit-sdk.git"
-	},
-	"author": "Michelangelo Partipilo <michelangelo.partipilo@gmail.com>",
-	"contributors": [
-		"Bruno Lourenço",
-		"Artur Heinze"
-	],
-	"license": "MIT",
-	"bugs": {
-		"url": "https://github.com/brunnolou/cockpit-sdk/issues"
-	},
-	"homepage": "https://github.com/brunnolou/cockpit-sdk#readme",
-	"dependencies": {
-		"babel-polyfill": "^6.26.0",
-		"es6-promise": "^4.1.1",
-		"isomorphic-fetch": "^2.2.1",
-		"query-string": "^5.0.1",
-		"universal-websocket-client": "^1.0.1"
-	},
-	"devDependencies": {
-		"babel-cli": "^6.26.0",
-		"babel-eslint": "^8.2.1",
-		"babel-plugin-transform-class-properties": "^6.24.1",
-		"babel-plugin-transform-object-rest-spread": "^6.26.0",
-		"babel-plugin-transform-regenerator": "^6.26.0",
-		"babel-preset-react-app": "^3.1.0",
-		"eslint": "^4.15.0",
-		"eslint-config-airbnb": "^16.1.0",
-		"eslint-config-prettier": "^2.9.0",
-		"eslint-config-react-app": "^2.0.1",
-		"eslint-config-skeleton": "^0.1.1",
-		"eslint-plugin-import": "^2.8.0",
-		"eslint-plugin-jsx-a11y": "^6.0.3",
-		"eslint-plugin-prettier": "^2.4.0",
-		"eslint-plugin-react": "^7.5.1",
-		"prettier": "^1.9.2",
-		"prettier-eslint": "^8.7.0",
-		"uglify-js": "^3.2.2"
-	}
+  "name": "cockpit-sdk",
+  "version": "0.4.0",
+  "description": "Javascript SDK for Cockpit headless CMS",
+  "main": "lib/index.js",
+  "scripts": {
+    "build": "rm -rf lib/* && babel src --out-dir lib",
+    "dev": "rm -rf lib/* && babel --watch src --out-dir lib --source-maps",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/brunnolou/cockpit-sdk.git"
+  },
+  "contributors": [
+    "Michelangelo Partipilo <michelangelo.partipilo@gmail.com>",
+    "Bruno Lourenço",
+    "Artur Heinze"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/brunnolou/cockpit-sdk/issues"
+  },
+  "homepage": "https://github.com/brunnolou/cockpit-sdk#readme",
+  "dependencies": {
+    "babel-polyfill": "^6.26.0",
+    "es6-promise": "^4.1.1",
+    "isomorphic-fetch": "^2.2.1",
+    "query-string": "^5.0.1",
+    "universal-websocket-client": "^1.0.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-eslint": "^8.2.1",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-plugin-transform-regenerator": "^6.26.0",
+    "babel-preset-react-app": "^3.1.0",
+    "eslint": "^4.15.0",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-config-react-app": "^2.0.1",
+    "eslint-config-skeleton": "^0.1.1",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-prettier": "^2.4.0",
+    "eslint-plugin-react": "^7.5.1",
+    "prettier": "^1.9.2",
+    "prettier-eslint": "^8.7.0",
+    "uglify-js": "^3.2.2"
+  }
 }
