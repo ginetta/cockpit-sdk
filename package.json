@@ -4,6 +4,7 @@
   "description": "Javascript SDK for Cockpit headless CMS",
   "main": "lib/index.js",
   "scripts": {
+    "prepublishOnly": "npm run test && npm run build",
     "build": "rm -rf lib/* && babel src --out-dir lib",
     "dev": "rm -rf lib/* && babel --watch src --out-dir lib --source-maps",
     "test": "eslint src/"
@@ -27,8 +28,7 @@
     "es6-promise": "^4.1.1",
     "isomorphic-fetch": "^2.2.1",
     "query-string": "^5.0.1",
-    "universal-websocket-client": "^1.0.1",
-    "ws": "^4.0.0"
+    "universal-websocket-client": "^1.0.1"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
