@@ -6,14 +6,14 @@ import CockpitSDK from './lib';
 const { protocol, hostname } = window.location;
 const protocolWs = protocol.replace('http', 'ws');
 
-const Cockpit = new CockpitSDK({
+const cockpit = new CockpitSDK({
   host: `${protocol}//${hostname}:8080`,
-  websocket: `${protocolWs}//${hostname}:4000`,
+  webSocket: `${protocolWs}//${hostname}:4000`,
   accessToken: '12a3456b789c12d34567ef8a9bc01d',
 });
 
-// Cockpit.assets({}).then(console.log);
-// Cockpit.authUser('user', 'password').then(console.log);
+// cockpit.assets({}).then(console.log);
+// cockpit.authUser('user', 'password').then(console.log);
 
 const toDictionary = (acc, entry) => ({ ...acc, [entry._id]: entry });
 
@@ -23,20 +23,26 @@ class App extends Component {
   };
 
   componentWillMount() {
-    Cockpit.collection('portfolio', { filter: { published: true }, limit: 10 })
-      .watch(data => {
-        console.log('watch: ', data);
-        const entries = data.entries.reduce(toDictionary, {});
+    const collection = cockpit.collection('portfolio', {
+      filter: { published: true },
+      limit: 10,
+    });
 
-        this.setState({
-          ...data,
-          entries,
-        });
-      })
-      .on('save', this.updateEntry.bind(this))
-      .on('preview', this.updateEntry.bind(this));
+    collection.watch(data => {
+      const entries = data.entries.reduce(toDictionary, {});
+
+      this.setState({
+        ...data,
+        entries,
+      });
+    });
+
+    collection.on('save', this.updateEntry.bind(this));
+    collection.on('preview', this.updateEntry.bind(this));
   }
 
+  // Save and preview sends only the entry so we nee to add it
+  // back to the collection
   updateEntry({ entry }) {
     if (!this.state.entries[entry._id]) return;
 

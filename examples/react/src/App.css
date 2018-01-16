@@ -22,6 +22,7 @@
 .App-pre {
   background-color: whitesmoke;
   font-size: 10px;
+  text-align: left;
 }
 
 @keyframes App-logo-spin {

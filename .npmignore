@@ -1,3 +1,5 @@
-example
-.eslint
-Makefile
+.babelrc
+.eslintignore
+.eslintrc
+examples
+src
