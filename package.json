@@ -6,7 +6,7 @@
   "scripts": {
     "build": "rm -rf lib/* && babel src --out-dir lib",
     "dev": "rm -rf lib/* && babel --watch src --out-dir lib --source-maps",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "eslint src/"
   },
   "repository": {
     "type": "git",
@@ -26,7 +26,9 @@
     "babel-polyfill": "^6.26.0",
     "es6-promise": "^4.1.1",
     "isomorphic-fetch": "^2.2.1",
-    "query-string": "^5.0.1"
+    "query-string": "^5.0.1",
+    "universal-websocket-client": "^1.0.1",
+    "ws": "^4.0.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
