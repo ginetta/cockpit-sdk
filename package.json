@@ -1,6 +1,6 @@
 {
   "name": "cockpit-sdk",
-  "version": "0.5.2",
+  "version": "0.5.3",
   "description": "Javascript SDK for Cockpit headless CMS",
   "main": "lib/index.js",
   "scripts": {
