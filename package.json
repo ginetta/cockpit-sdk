@@ -4,9 +4,11 @@
   "description": "Javascript SDK for Cockpit headless CMS",
   "main": "lib/index.js",
   "scripts": {
+    "preversion": "npm run test && npm run build",
+    "prepublishOnly": "npm run test && npm run build",
     "build": "rm -rf lib/* && babel src --out-dir lib",
     "dev": "rm -rf lib/* && babel --watch src --out-dir lib --source-maps",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "eslint ."
   },
   "repository": {
     "type": "git",

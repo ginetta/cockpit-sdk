@@ -101,6 +101,12 @@ class CockpitSDK {
           .catch(error);
       },
 
+      promise: new Promise((success, error) => {
+        this.collectionGet(collectionName, options)
+          .then(success)
+          .catch(error);
+      }),
+
       schema: (success, error) => {
         this.collectionSchema(collectionName, options)
           .then(success)
