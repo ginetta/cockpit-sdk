@@ -35,3 +35,4 @@ rules:
     - warn
     - aspects:
         - invalidHref
+  no-console: off
