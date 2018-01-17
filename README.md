@@ -34,6 +34,8 @@ Cockpit.region("regionName").data(console.log);
 | -------------------- | ----------------------------- | ------- |
 | **collectionSchema** | `(collectionName)`            | Promise |
 | **collectionGet**    | `(collectionName, options)`   | Promise |
+| **collectionSave**   | `(collectionName, data)`      | Promise |
+| **collectionRemove** | `(collectionName, filter)`    | Promise |
 | **collection**       | `(collectionName, options)`   | -       |
 | collection.**get**   | `(success, error)`            | -       |
 | collection.**watch** | `(success, error)`            | -       |
@@ -157,10 +159,10 @@ This SKD is working with [Cockpit-Real-time-Server](https://github.com/brunnolou
 | collection.**on**    | `(eventName, success, error)` |
 
 ```js
-Cockpit.collection("portfolio")
-  .watch(console.log) // { "entries": […], "fields": {...}, "total": … }
-  .on("save", console.log) // { entry: {...}, collection: '', event: '' }
-  .on("preview", console.log); // { entry: {...}, collection: '', event: '' }
+const collection = Cockpit.collection("portfolio")
+collection.watch(console.log) // { "entries": […], "fields": {...}, "total": … }
+collection.on("save", console.log) // { entry: {...}, collection: '', event: '' }
+collection.on("preview", console.log); // { entry: {...}, collection: '', event: '' }
 ```
 
 > _Note that the `.watch` and `.get` methods returns the **whole entries** and the `.on` method just **one entry**_

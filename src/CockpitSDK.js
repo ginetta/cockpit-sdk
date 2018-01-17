@@ -82,19 +82,29 @@ class CockpitSDK {
   }
 
   // @param {string} collectionName
+  // @param {Request} data
+  collectionSave(collectionName, data) {
+    return this.fetchData(`/api/collections/save/${collectionName}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ data }),
+    });
+  }
+
+  // @param {string} collectionName
+  // @param {Request} filter
+  collectionRemove(collectionName, filter) {
+    return this.fetchData(`/api/collections/remove/${collectionName}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      filter: JSON.stringify(filter),
+    });
+  }
+
+  // @param {string} collectionName
   // @param {Request} options
   collection(collectionName, options) {
     return {
-      save: (success, error) => {
-        console.warn('collection.().save() not implemented yet');
-        error('collection.().save() not implemented yet');
-      },
-
-      remove: (success, error) => {
-        console.warn('collection.().remove() not implemented yet');
-        error('collection.().remove() not implemented yet');
-      },
-
       get: (success, error) => {
         this.collectionGet(collectionName, options)
           .then(success)
