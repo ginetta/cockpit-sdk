@@ -3,7 +3,7 @@
 #### A Javascript SDK for [Cockpit Headless CMS](https://github.com/agentejo/cockpit)
 
 [![npm version](https://badge.fury.io/js/cockpit-sdk.svg?v2)](https://www.npmjs.com/package/cockpit-sdk)
-![size](http://img.badgesize.io/brunnolou/cockpit-sdk/master/lib/all.min.js?compression=gzip)
+![size](http://img.badgesize.io/brunnolou/cockpit-sdk/master/lib/all.min.js?compression=gzip&label=gzip+size)
 
 ## Usage
 
