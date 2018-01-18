@@ -12,7 +12,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/brunnolou/cockpit-sdk.git"
+    "url": "git+https://github.com/ginetta/cockpit-sdk.git"
   },
   "contributors": [
     "Michelangelo Partipilo <michelangelo.partipilo@gmail.com>",
@@ -21,9 +21,9 @@
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/brunnolou/cockpit-sdk/issues"
+    "url": "https://github.com/ginetta/cockpit-sdk/issues"
   },
-  "homepage": "https://github.com/brunnolou/cockpit-sdk#readme",
+  "homepage": "https://github.com/ginetta/cockpit-sdk#readme",
   "dependencies": {
     "babel-polyfill": "^6.26.0",
     "es6-promise": "^4.1.1",
