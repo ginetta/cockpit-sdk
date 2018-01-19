@@ -16,7 +16,18 @@ class CockpitSDK {
   getImageOptions = options =>
     typeof options === 'number' ? { width: options } : options;
 
-  constructor({ host, accessToken, lang, webSocket }) {
+  constructor({ host, accessToken, lang, webSocket, ...rest }) {
+    const invalidConfig = Object.keys(rest);
+
+    if (invalidConfig.length)
+      console.error(
+        'Invalid keys:',
+        invalidConfig,
+        '\n',
+        'Valid keys are:',
+        'host, accessToken, lang, webSocket',
+      );
+
     this.host = host;
     this.lang = lang;
     this.accessToken = accessToken;
