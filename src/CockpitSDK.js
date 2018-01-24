@@ -2,21 +2,30 @@ import qs from 'query-string';
 import fetch from 'isomorphic-fetch';
 import CockpitRealTime from './CockpitRealTime';
 
-const defaultOptions = {
-  mode: 'cors',
-  cache: 'default',
-};
-
 class CockpitSDK {
   static events = {
     SAVE: 'save',
     PREVIEW: 'preview',
   };
 
+  defaultOptions = {};
+  fetchInitOptions = {
+    mode: 'cors',
+    cache: 'default',
+  };
+
   getImageOptions = options =>
     typeof options === 'number' ? { width: options } : options;
 
-  constructor({ host, accessToken, lang, webSocket, ...rest }) {
+  constructor({
+    accessToken,
+    defaultOptions,
+    fetchInitOptions,
+    host,
+    lang,
+    webSocket,
+    ...rest
+  }) {
     const invalidConfig = Object.keys(rest);
 
     if (invalidConfig.length)
@@ -25,11 +34,13 @@ class CockpitSDK {
         invalidConfig,
         '\n',
         'Valid keys are:',
-        'host, accessToken, lang, webSocket',
+        'accessToken, defaultOptions, fetchInitOptions, host, lang, webSocket',
       );
 
     this.host = host;
     this.lang = lang;
+    this.fetchInitOptions = { ...this.fetchInitOptions, ...fetchInitOptions };
+    this.defaultOptions = { ...this.defaultOptions, ...defaultOptions };
     this.accessToken = accessToken;
     this.webSocket = webSocket;
     this.queryParams = {
@@ -45,7 +56,7 @@ class CockpitSDK {
   fetchData(apiPath, options, queryParams) {
     const requestInit = {
       ...options,
-      ...defaultOptions,
+      ...this.fetchInitOptions,
     };
 
     const hostWithToken = `${this.host}${apiPath}?${qs.stringify(
@@ -59,7 +70,7 @@ class CockpitSDK {
   fetchDataText(apiPath, options, queryParams) {
     const requestInit = {
       ...options,
-      ...defaultOptions,
+      ...this.fetchInitOptions,
     };
 
     const hostWithToken = `${this.host}${apiPath}?${qs.stringify(
@@ -88,7 +99,7 @@ class CockpitSDK {
     return this.fetchData(`/api/collections/get/${collectionName}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(options),
+      body: this.stringifyOptions(options),
     });
   }
 
@@ -98,7 +109,7 @@ class CockpitSDK {
     return this.fetchData(`/api/collections/save/${collectionName}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ data }),
+      body: this.stringifyOptions({ data }),
     });
   }
 
@@ -108,8 +119,12 @@ class CockpitSDK {
     return this.fetchData(`/api/collections/remove/${collectionName}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      filter: JSON.stringify(filter),
+      filter: this.stringifyOptions(filter),
     });
+  }
+
+  stringifyOptions(options) {
+    return JSON.stringify({ ...this.defaultOptions, ...options });
   }
 
   // @param {string} collectionName
@@ -276,7 +291,7 @@ class CockpitSDK {
     return this.fetchData('/api/cockpit/authUser', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ user, password }),
+      body: this.stringifyOptions({ user, password }),
     });
   }
 
