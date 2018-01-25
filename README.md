@@ -13,6 +13,12 @@ npm install cockpit-sdk
 yarn add cockpit-sdk
 ```
 
+If you're using Gatsby you can include the cockpit-sdk with the following:
+```
+const CockpitSDK = require('cockpit-sdk').default;
+```
+
+
 ## Simple Example
 
 ```js
