@@ -14,25 +14,25 @@ yarn add cockpit-sdk
 ```
 
 If you're using Gatsby you can include the cockpit-sdk with the following:
-```
-const CockpitSDK = require('cockpit-sdk').default;
-```
-
 
 ## Simple Example
 
 ```js
-const Cockpit = new CockpitSDK({
+const CockpitSDK = require("cockpit-sdk").default;
+// or
+import CockpitSDK from "cockpit-sdk";
+
+const cockpit = new CockpitSDK({
   host: "http://localhost:8080", // e.g. local docker Cockpit.
   accessToken: "12a3456b789c12d34567ef8a9bc01d"
 });
 
-Cockpit.collectionGet("posts", { limit: 3 }).then(data => console.log(data));
+cockpit.collectionGet("posts", { limit: 3 }).then(data => console.log(data));
 // { "fields": {...}, "entries": [{...},{...},{...}], "total": 3 }
 
 // Or with the callback api:
-Cockpit.collection("posts", { limit: 3 }).get(console.log);
-Cockpit.region("regionName").data(console.log);
+cockpit.collection("posts", { limit: 3 }).get(console.log);
+cockpit.region("regionName").data(console.log);
 ```
 
 ## Collections
@@ -40,6 +40,7 @@ Cockpit.region("regionName").data(console.log);
 | Method               | Args                          | Return  |
 | -------------------- | ----------------------------- | ------- |
 | **collectionSchema** | `(collectionName)`            | Promise |
+| **collectionList**   | `()`                          | Promise |
 | **collectionGet**    | `(collectionName, options)`   | Promise |
 | **collectionSave**   | `(collectionName, data)`      | Promise |
 | **collectionRemove** | `(collectionName, filter)`    | Promise |
@@ -107,16 +108,15 @@ When `image` method receives an array as second argument it will behave as `imag
 <details><summary><b>Example:</b></summary><p>
 
 ```js
-Cockpit.image(path); // original/path.jpg
-Cockpit.image(path, { width: 100 });
-Cockpit.image(path, [100, 480, 960]);
-Cockpit.image(path, [
+cockpit.image(path); // original/path.jpg
+cockpit.image(path, { width: 100 });
+cockpit.image(path, [100, 480, 960]);
+cockpit.image(path, [
   100,
   { width: 480, height: 480 },
   { width: 960, srcSet: "(max-width: 30em)" }
 ]);
 // ['?src=path.jpg&w=100 100w', '?src=path.jpg&w=480&h=480 480w', '?src=path.jpg&w=960 (max-width: 30em)']
-
 ```
 
 </p></details>
@@ -147,7 +147,7 @@ The `collection` method fetches the data on call and on every collection update.
 The real-time methods expects callback functions instead of a promise.
 
 ```js
-Cockpit.collection("portfolio").watch(data => console.log(data));
+cockpit.collection("portfolio").watch(data => console.log(data));
 
 // { "fields": {...}, "entries": [{...},{...},{...}], "total": … }
 ```
@@ -166,9 +166,9 @@ This SKD is working with [Cockpit-Real-time-Server](https://github.com/brunnolou
 | collection.**on**    | `(eventName, success, error)` |
 
 ```js
-const collection = Cockpit.collection("portfolio")
-collection.watch(console.log) // { "entries": […], "fields": {...}, "total": … }
-collection.on("save", console.log) // { entry: {...}, collection: '', event: '' }
+const collection = cockpit.collection("portfolio");
+collection.watch(console.log); // { "entries": […], "fields": {...}, "total": … }
+collection.on("save", console.log); // { entry: {...}, collection: '', event: '' }
 collection.on("preview", console.log); // { entry: {...}, collection: '', event: '' }
 ```
 
@@ -177,7 +177,7 @@ collection.on("preview", console.log); // { entry: {...}, collection: '', event:
 ## Event names
 
 ```js
-Cockpit.collection("portfolio").on(eventName);
+cockpit.collection("portfolio").on(eventName);
 ```
 
 | Events  |
