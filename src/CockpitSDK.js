@@ -8,6 +8,8 @@ class CockpitSDK {
     PREVIEW: 'preview',
   };
 
+  static cache = {};
+
   defaultOptions = {};
   fetchInitOptions = {
     mode: 'cors',
@@ -63,7 +65,19 @@ class CockpitSDK {
       this.queryParams,
     )}&${qs.stringify(queryParams)}`;
 
-    return fetch(hostWithToken, requestInit).then(x => x.json());
+    if (CockpitSDK.cache[hostWithToken]) {
+      console.log('using from cache');
+      return CockpitSDK.cache[hostWithToken];
+    }
+
+    console.log('making the request');
+    const request = fetch(hostWithToken, requestInit).then(x => x.json());
+
+    CockpitSDK.cache = {
+      ...CockpitSDK.cache,
+      [hostWithToken]: request
+    };
+    return request;
   }
 
   // @param {string} apiPath
