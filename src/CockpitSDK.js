@@ -198,7 +198,7 @@ class CockpitSDK {
   }
 
   regionList() {
-    return this.fetchDataText(`/api/regions/listRegions`, {
+    return this.fetchData(`/api/regions/listRegions`, {
       method: 'GET',
     });
   }
