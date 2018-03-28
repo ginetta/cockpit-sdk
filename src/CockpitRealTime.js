@@ -1,4 +1,8 @@
-const WebSocket = require('universal-websocket-client');
+const ws = require('ws/lib/WebSocket');
+
+let { WebSocket } = global;
+
+if (!WebSocket) WebSocket = ws;
 
 class CockpitRealTime {
   static events = {
