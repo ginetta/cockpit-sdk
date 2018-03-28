@@ -35,6 +35,32 @@ cockpit.collection("posts", { limit: 3 }).get(console.log);
 cockpit.region("regionName").data(console.log);
 ```
 
+## Connecting to your Cockpit instance
+
+Connecting your project to Cockpit is done by instantiating CockpitSDK. This object takes multiple parameters.
+
+| Parameter            | Description                                     |
+| -------------------- | ----------------------------------------------- |
+| **host**             | Your cockpit instance address                   |
+| **accessToken**      | Cockpit access token                            |
+| **webSocket**        | Websocket address (if used)                     |
+| **fetchInitOptions** | [Init options](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/fetch#Parameters) to apply on every Fetch request                        |
+| **defaultOptions**   | Options to be applied on every Cockpit fetch    |
+
+<details><summary><b>defaultOptions:</b></summary><p>
+
+```js
+  {
+    filter: { published: true }, // mongoDB Operators.
+    populate: 1 // Resolve linked collection items.
+    limit,
+    skip,
+    sort: { _created: -1 },
+  }
+```
+
+</p></details>
+
 ## Collections
 
 | Method               | Args                          | Return  |
