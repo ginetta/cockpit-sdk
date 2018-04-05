@@ -223,9 +223,12 @@ class CockpitSDK {
   }
 
   // @param {string} regionName
-  regionGet(regionName) {
+  // @param {Request} options
+  regionGet(regionName, options) {
     return this.fetchDataText(`${this.endpoints.regionsGet}${regionName}`, {
-      method: 'GET',
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: this.stringifyOptions(options),
     });
   }
 
