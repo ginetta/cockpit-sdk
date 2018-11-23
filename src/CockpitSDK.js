@@ -197,6 +197,22 @@ class CockpitSDK {
     });
   }
 
+  singletonList() {
+    return this.fetchData(`/api/singletons/listSingletons`, {
+      method: 'GET',
+    });
+  }
+
+  // @param {string} singletonName
+  // @param {Request} options
+  singletonGet(singletonName, options) {
+    return this.fetchData(`/api/singletons/get/${singletonName}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: this.stringifyOptions(options),
+    });
+  }
+
   regionList() {
     return this.fetchData(`/api/regions/listRegions`, {
       method: 'GET',
