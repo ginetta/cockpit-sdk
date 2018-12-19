@@ -105,6 +105,7 @@ Connecting your project to Cockpit is done by instantiating CockpitSDK. This obj
   width,
   height,
   quality: 85,
+  pixelRatio: 2, // default: 1
   mode: 'thumbnail' | 'bestFit' | 'resize' | 'fitToWidth' | 'fitToHeight',
   // Filters:
   blur, brighten, colorize, contrast, darken, desaturate,
