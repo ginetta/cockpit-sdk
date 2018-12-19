@@ -1,6 +1,5 @@
 import qs from 'query-string';
 import fetch from 'isomorphic-fetch';
-import CockpitRealTime from './CockpitRealTime';
 
 class CockpitSDK {
   static events = {
@@ -162,13 +161,15 @@ class CockpitSDK {
         if (!this.webSocket) return;
 
         this.webSocket.on(
-          CockpitRealTime.events.COLLECTIONS_SAVE_AFTER,
+          this.CockpitRealTime.events.COLLECTIONS_SAVE_AFTER,
           getCollection,
           error,
         );
 
         this.webSocket.on(
-          `${CockpitRealTime.events.COLLECTIONS_SAVE_AFTER}.${collectionName}`,
+          `${
+            this.CockpitRealTime.events.COLLECTIONS_SAVE_AFTER
+          }.${collectionName}`,
           getCollection,
           error,
         );
@@ -179,8 +180,8 @@ class CockpitSDK {
       // @param {function} error
       on: (event, success, error) => {
         const cockpitEvent = {
-          save: CockpitRealTime.events.COLLECTIONS_SAVE_AFTER,
-          preview: CockpitRealTime.events.COLLECTIONS_PREVIEW,
+          save: this.CockpitRealTime.events.COLLECTIONS_SAVE_AFTER,
+          preview: this.CockpitRealTime.events.COLLECTIONS_PREVIEW,
         };
 
         if (!this.webSocket) return;
@@ -274,13 +275,13 @@ class CockpitSDK {
 
     const opts = this.getImageOptions(options);
 
-    const { width, height, quality, ...rest } = opts;
+    const { width, height, quality, pixelRatio = 1, ...rest } = opts;
 
     return `${this.host}/api/cockpit/image?${qs.stringify({
       ...this.queryParams,
       src: assetId,
-      w: width,
-      h: height,
+      w: width * pixelRatio,
+      h: height * pixelRatio,
       q: quality,
       d: 1,
       o: 1,
@@ -294,7 +295,7 @@ class CockpitSDK {
     return widths
       .map(width => {
         if (typeof width === 'object')
-          return `${this.image(assetId, { width: width.width })} ${
+          return `${this.image(assetId, width)} ${
             width.srcSet || width.width ? `${width.width}w` : ''
           }`;
 
@@ -323,7 +324,10 @@ class CockpitSDK {
   }
 
   setWebsocket(host) {
-    this.webSocket = new CockpitRealTime({ host });
+    // eslint-disable-next-line global-require
+    this.CockpitRealTime = require('./CockpitRealTime');
+
+    this.webSocket = this.CockpitRealTime({ host });
   }
 }
 
