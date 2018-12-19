@@ -1,3 +1,6 @@
 extends: eslint-config-skeleton
+plugins: ["jest"]
 rules:
   no-console: off
+env:
+  jest/globals: true
