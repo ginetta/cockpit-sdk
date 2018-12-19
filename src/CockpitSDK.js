@@ -275,13 +275,13 @@ class CockpitSDK {
 
     const opts = this.getImageOptions(options);
 
-    const { width, height, quality, ...rest } = opts;
+    const { width, height, quality, pixelRatio = 1, ...rest } = opts;
 
     return `${this.host}/api/cockpit/image?${qs.stringify({
       ...this.queryParams,
       src: assetId,
-      w: width,
-      h: height,
+      w: width * pixelRatio,
+      h: height * pixelRatio,
       q: quality,
       d: 1,
       o: 1,
@@ -295,7 +295,7 @@ class CockpitSDK {
     return widths
       .map(width => {
         if (typeof width === 'object')
-          return `${this.image(assetId, { width: width.width })} ${
+          return `${this.image(assetId, width)} ${
             width.srcSet || width.width ? `${width.width}w` : ''
           }`;
 
