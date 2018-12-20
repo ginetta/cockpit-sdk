@@ -2,5 +2,7 @@ extends: eslint-config-skeleton
 plugins: ["jest"]
 rules:
   no-console: off
+  complexity: ["error", { "max": 10 }]
+
 env:
   jest/globals: true
