@@ -279,9 +279,9 @@ class CockpitSDK {
 
     return `${this.host}/api/cockpit/image?${qs.stringify({
       ...this.queryParams,
+      w: width ? Number(width) * pixelRatio : undefined,
+      h: height ? Number(height) * pixelRatio : undefined,
       src: assetId,
-      w: width * pixelRatio,
-      h: height * pixelRatio,
       q: quality,
       d: 1,
       o: 1,
@@ -294,10 +294,13 @@ class CockpitSDK {
 
     return widths
       .map(width => {
-        if (typeof width === 'object')
-          return `${this.image(assetId, width)} ${
-            width.srcSet || width.width ? `${width.width}w` : ''
+        if (typeof width === 'object') {
+          const { srcSet, ...opts } = width;
+
+          return `${this.image(assetId, opts)} ${
+            srcSet || opts.width ? `${srcSet || `${opts.width}w`}` : ''
           }`;
+        }
 
         return `${this.image(assetId, { width })} ${width}w`;
       })
