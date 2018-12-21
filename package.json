@@ -6,7 +6,8 @@
   "scripts": {
     "preversion": "npm run test && npm run build",
     "prepublishOnly": "npm run test && npm run build",
-    "build": "rm -rf lib/* && babel src --out-dir lib && babel src --out-file lib/all.js && uglifyjs lib/all.js -m -c -o lib/all.min.js && rm -f lib/all.js",
+    "prebuild": "rm -rf lib/*",
+    "build": "babel src --ignore '__tests__' --out-dir lib && babel src --ignore '__tests__' --out-file lib/all.js && uglifyjs lib/all.js -m -c -o lib/all.min.js && rm -f lib/all.js",
     "dev": "rm -rf lib/* && babel --watch src --out-dir lib --source-maps",
     "test": "eslint . && jest src"
   },
