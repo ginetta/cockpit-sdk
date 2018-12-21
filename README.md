@@ -106,11 +106,13 @@ Connecting your project to Cockpit is done by instantiating CockpitSDK. This obj
   height,
   quality: 85,
   pixelRatio: 2, // default: 1
-  mode: 'thumbnail' | 'bestFit' | 'resize' | 'fitToWidth' | 'fitToHeight',
-  // Filters:
-  blur, brighten, colorize, contrast, darken, desaturate,
-  emboss, flip, invert, opacity, pixelate,
-  sepia, sharpen, sketch
+	mode: 'thumbnail' | 'bestFit' | 'resize' | 'fitToWidth' | 'fitToHeight',
+	filters: { darken: 50, pixelate: 40, desaturate: true, flip: 'x', colorize: 'FF0' },
+  /* Filters:
+  blur | brighten | colorize | contrast | darken | desaturate |
+  emboss | flip | invert | opacity | pixelate |
+	sepia | sharpen | sketch
+	*/
 }
 ```
 
