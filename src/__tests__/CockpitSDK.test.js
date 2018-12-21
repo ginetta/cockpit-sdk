@@ -133,3 +133,38 @@ test('Expect Cockpit.image with array to return different srcSet', () => {
       'foo/api/cockpit/image?d=1&h=200&lang=biz&o=1&src=bux&token=bar&w=400 2x',
   );
 });
+
+test('Expect Cockpit.image to return one filter', () => {
+  const cockpit = new CockpitSDK({
+    host: 'foo',
+    accessToken: 'bar',
+    lang: 'biz',
+  });
+  const imageOptions = {
+    filters: { darken: 50 },
+  };
+
+  const result = cockpit.image('bux', imageOptions);
+
+  expect(result).toBe(
+    'foo/api/cockpit/image?d=1&lang=biz&o=1&src=bux&token=bar&f[darken]=50',
+  );
+});
+
+test('Expect Cockpit.image to return multiple filters', () => {
+  const cockpit = new CockpitSDK({
+    host: 'foo',
+    accessToken: 'bar',
+    lang: 'biz',
+  });
+
+  const imageOptions = {
+    filters: { darken: 50, pixelate: 40, desaturate: true, flip: 'x' },
+  };
+
+  const result = cockpit.image('bux', imageOptions);
+
+  expect(result).toBe(
+    'foo/api/cockpit/image?d=1&lang=biz&o=1&src=bux&token=bar&f[darken]=50&f[pixelate]=40&f[desaturate]=true&f[flip]=x',
+  );
+});

@@ -1,5 +1,6 @@
 import qs from 'query-string';
 import fetch from 'isomorphic-fetch';
+import { stringifyObject } from './utils/queryString';
 
 class CockpitSDK {
   static events = {
@@ -275,7 +276,8 @@ class CockpitSDK {
 
     const opts = this.getImageOptions(options);
 
-    const { width, height, quality, pixelRatio = 1, ...rest } = opts;
+    const { width, height, quality, pixelRatio = 1, filters, ...rest } = opts;
+    const f = stringifyObject(filters);
 
     return `${this.host}/api/cockpit/image?${qs.stringify({
       ...this.queryParams,
@@ -286,7 +288,7 @@ class CockpitSDK {
       d: 1,
       o: 1,
       ...rest,
-    })}`;
+    })}${f || ''}`;
   }
 
   imageSrcSet(assetId, widths = []) {
