@@ -55,6 +55,7 @@ Connecting your project to Cockpit is done by instantiating CockpitSDK. This obj
     populate: 1 // Resolve linked collection items.
     limit,
     skip,
+    apiEndpoints, // See Api endpoints section bellow
     sort: { _created: -1 },
   }
 ```
@@ -106,13 +107,13 @@ Connecting your project to Cockpit is done by instantiating CockpitSDK. This obj
   height,
   quality: 85,
   pixelRatio: 2, // default: 1
-	mode: 'thumbnail' | 'bestFit' | 'resize' | 'fitToWidth' | 'fitToHeight',
-	filters: { darken: 50, pixelate: 40, desaturate: true, flip: 'x', colorize: 'FF0' },
+  mode: 'thumbnail' | 'bestFit' | 'resize' | 'fitToWidth' | 'fitToHeight',
+  filters: { darken: 50, pixelate: 40, desaturate: true, flip: 'x', colorize: 'FF0' },
   /* Filters:
   blur | brighten | colorize | contrast | darken | desaturate |
   emboss | flip | invert | opacity | pixelate |
-	sepia | sharpen | sketch
-	*/
+  sepia | sharpen | sketch
+  */
 }
 ```
 
@@ -202,6 +203,37 @@ collection.on("preview", console.log); // { entry: {...}, collection: '', event:
 ```
 
 > _Note that the `.watch` and `.get` methods returns the **whole entries** and the `.on` method just **one entry**_
+
+## Api endpoint
+
+### Default endpoints
+| Name                       | Default URL                        |
+| -------------------------- | ---------------------------------- |
+| cockpitAssets              | '/api/cockpit/assets'              |
+| cockpitAuthUser            | '/api/cockpit/authUser'            |
+| cockpitImage               | '/api/cockpit/image'               |
+| cockpitListUsers           | '/api/cockpit/listUsers'           |
+| collectionsCollection      | '/api/collections/collection/'     |
+| collectionsGet             | '/api/collections/get/'            |
+| collectionsListCollections | '/api/collections/listCollections' |
+| collectionsRemove          | '/api/collections/remove/'         |
+| collectionsSave            | '/api/collections/save/'           |
+| regionsData                | '/api/regions/data/'               |
+| regionsGet                 | '/api/regions/get/'                |
+| regionsListRegions         | '/api/regions/listRegions'         |
+| singletonsGet              | '/api/singletons/get/'             |
+| singletonsListSingletons   | '/api/singletons/listSingletons'   |
+
+The default `apiEndpoints` can be updated in the constructor.
+```js
+new CockpitSDK({
+  // ...
+  apiEndpoints: {
+    cockpitImage: '/api/public/image',
+  },
+});
+```
+
 
 ## Event names
 

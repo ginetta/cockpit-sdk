@@ -8,6 +8,25 @@ class CockpitSDK {
     PREVIEW: 'preview',
   };
 
+  defaultEndpoints = {
+    cockpitAssets: '/api/cockpit/assets',
+    cockpitAuthUser: '/api/cockpit/authUser',
+    cockpitImage: '/api/cockpit/image',
+    cockpitListUsers: '/api/cockpit/listUsers',
+    collectionsCollection: '/api/collections/collection/',
+    collectionsGet: '/api/collections/get/',
+    collectionsListCollections: '/api/collections/listCollections',
+    collectionsRemove: '/api/collections/remove/',
+    collectionsSave: '/api/collections/save/',
+    regionsData: '/api/regions/data/',
+    regionsGet: '/api/regions/get/',
+    regionsListRegions: '/api/regions/listRegions',
+    singletonsGet: '/api/singletons/get/',
+    singletonsListSingletons: '/api/singletons/listSingletons',
+  };
+
+  endpoints = {};
+
   defaultOptions = {};
   fetchInitOptions = {
     mode: 'cors',
@@ -24,6 +43,7 @@ class CockpitSDK {
     host,
     lang,
     webSocket,
+    apiEndpoints = {},
     ...rest
   }) {
     const invalidConfig = Object.keys(rest);
@@ -41,6 +61,7 @@ class CockpitSDK {
     this.lang = lang;
     this.fetchInitOptions = { ...this.fetchInitOptions, ...fetchInitOptions };
     this.defaultOptions = { ...this.defaultOptions, ...defaultOptions };
+    this.endpoints = { ...this.defaultEndpoints, ...apiEndpoints };
     this.accessToken = accessToken;
     this.webSocket = webSocket;
     this.queryParams = {
@@ -82,13 +103,16 @@ class CockpitSDK {
 
   // @param {string} collectionName
   collectionSchema(collectionName) {
-    return this.fetchData(`/api/collections/collection/${collectionName}`, {
-      method: 'GET',
-    });
+    return this.fetchData(
+      `${this.endpoints.collectionsCollection}${collectionName}`,
+      {
+        method: 'GET',
+      },
+    );
   }
 
   collectionList() {
-    return this.fetchData(`/api/collections/listCollections`, {
+    return this.fetchData(this.endpoints.collectionsListCollections, {
       method: 'GET',
     });
   }
@@ -96,7 +120,7 @@ class CockpitSDK {
   // @param {string} collectionName
   // @param {Request} options
   collectionGet(collectionName, options) {
-    return this.fetchData(`/api/collections/get/${collectionName}`, {
+    return this.fetchData(`${this.endpoints.collectionsGet}${collectionName}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: this.stringifyOptions(options),
@@ -106,21 +130,27 @@ class CockpitSDK {
   // @param {string} collectionName
   // @param {Request} data
   collectionSave(collectionName, data) {
-    return this.fetchData(`/api/collections/save/${collectionName}`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: this.stringifyOptions({ data }),
-    });
+    return this.fetchData(
+      `${this.endpoints.collectionsSave}${collectionName}`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: this.stringifyOptions({ data }),
+      },
+    );
   }
 
   // @param {string} collectionName
   // @param {Request} filter
   collectionRemove(collectionName, filter) {
-    return this.fetchData(`/api/collections/remove/${collectionName}`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      filter: this.stringifyOptions(filter),
-    });
+    return this.fetchData(
+      `${this.endpoints.collectionsRemove}${collectionName}`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        filter: this.stringifyOptions(filter),
+      },
+    );
   }
 
   stringifyOptions(options) {
@@ -194,13 +224,13 @@ class CockpitSDK {
 
   // @param {string} regionName
   regionGet(regionName) {
-    return this.fetchDataText(`/api/regions/get/${regionName}`, {
+    return this.fetchDataText(`${this.endpoints.regionsGet}${regionName}`, {
       method: 'GET',
     });
   }
 
   singletonList() {
-    return this.fetchData(`/api/singletons/listSingletons`, {
+    return this.fetchData(this.endpoints.singletonsListSingletons, {
       method: 'GET',
     });
   }
@@ -208,7 +238,7 @@ class CockpitSDK {
   // @param {string} singletonName
   // @param {Request} options
   singletonGet(singletonName, options) {
-    return this.fetchData(`/api/singletons/get/${singletonName}`, {
+    return this.fetchData(`${this.endpoints.singletonsGet}${singletonName}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: this.stringifyOptions(options),
@@ -216,14 +246,16 @@ class CockpitSDK {
   }
 
   regionList() {
-    return this.fetchData(`/api/regions/listRegions`, {
+    return this.fetchData(this.endpoints.RegionsListRegions, {
       method: 'GET',
     });
   }
 
   // @param {string} regionName
   regionData(regionName) {
-    return this.fetchData(`/api/regions/data/${regionName}`, { method: 'GET' });
+    return this.fetchData(`${this.endpoints.regionsData}${regionName}`, {
+      method: 'GET',
+    });
   }
 
   // @param {string} collectionName
@@ -245,7 +277,7 @@ class CockpitSDK {
 
   assets(options) {
     return this.fetchData(
-      '/api/cockpit/assets',
+      this.endpoints.cockpitAssets,
       {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
@@ -256,7 +288,7 @@ class CockpitSDK {
 
   imageGet(assetId, { width, height, quality }) {
     return this.fetchDataText(
-      '/api/cockpit/image',
+      this.endpoints.cockpitImage,
       { method: 'GET' },
       {
         src: assetId,
@@ -279,7 +311,7 @@ class CockpitSDK {
     const { width, height, quality, pixelRatio = 1, filters, ...rest } = opts;
     const f = stringifyObject(filters);
 
-    return `${this.host}/api/cockpit/image?${qs.stringify({
+    return `${this.host}${this.endpoints.cockpitImage}?${qs.stringify({
       ...this.queryParams,
       w: width ? Number(width) * pixelRatio : undefined,
       h: height ? Number(height) * pixelRatio : undefined,
@@ -310,7 +342,7 @@ class CockpitSDK {
   }
 
   authUser(user, password) {
-    return this.fetchData('/api/cockpit/authUser', {
+    return this.fetchData(this.endpoints.cockpitAuthUser, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: this.stringifyOptions({ user, password }),
@@ -319,7 +351,7 @@ class CockpitSDK {
 
   listUsers(options) {
     return this.fetchData(
-      '/api/cockpit/listUsers',
+      this.endpoints.cockpitListUsers,
       {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
