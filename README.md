@@ -160,13 +160,13 @@ cockpit.image(path, [
 
 ## Regions
 
-| Method          | Args               | Return  |
-| --------------- | ------------------ | ------- |
-| **region**      | `(regionName)`     | -       |
-| region.**get**  | `(success, error)` | -       |
-| region.**data** | `(success, error)` | -       |
-| **regionGet**   | `(regionName)`     | Promise |
-| **regionData**  | `(regionName)`     | Promise |
+| Method          | Args                    | Return  |
+| --------------- | ----------------------- | ------- |
+| **region**      | `(regionName, options)` | -       |
+| region.**get**  | `(success, error)`      | -       |
+| region.**data** | `(success, error)`      | -       |
+| **regionGet**   | `(regionName, options)` | Promise |
+| **regionData**  | `(regionName, options)` | Promise |
 
 # Real-time
 
