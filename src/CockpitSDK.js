@@ -223,9 +223,12 @@ class CockpitSDK {
   }
 
   // @param {string} regionName
-  regionGet(regionName) {
+  // @param {Request} options
+  regionGet(regionName, options) {
     return this.fetchDataText(`${this.endpoints.regionsGet}${regionName}`, {
-      method: 'GET',
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: this.stringifyOptions(options),
     });
   }
 
@@ -252,23 +255,27 @@ class CockpitSDK {
   }
 
   // @param {string} regionName
-  regionData(regionName) {
+  // @param {Request} options
+  regionData(regionName, options) {
     return this.fetchData(`${this.endpoints.regionsData}${regionName}`, {
-      method: 'GET',
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: this.stringifyOptions(options),
     });
   }
 
-  // @param {string} collectionName
-  region(regionName) {
+  // @param {string} regionName
+  // @param {Request} options
+  region(regionName, options) {
     return {
       data: (success, error) => {
-        this.regionData(regionName)
+        this.regionData(regionName, options)
           .then(success)
           .catch(error);
       },
 
       get: (success, error) => {
-        this.regionGet(regionName)
+        this.regionGet(regionName, options)
           .then(success)
           .catch(error);
       },
