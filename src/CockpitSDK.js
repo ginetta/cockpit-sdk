@@ -23,6 +23,7 @@ class CockpitSDK {
     regionsListRegions: '/api/regions/listRegions',
     singletonsGet: '/api/singletons/get/',
     singletonsListSingletons: '/api/singletons/listSingletons',
+    formsSubmit: '/api/forms/submit/',
   };
 
   endpoints = {};
@@ -280,6 +281,17 @@ class CockpitSDK {
           .catch(error);
       },
     };
+  }
+
+  // @param {string} formName
+  // @param {Request} formData
+  // @param {Request} options
+  formSubmit(formName, formData, options = {}) {
+    return this.fetchData(`${this.endpoints.formsSubmit}${formName}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: this.stringifyOptions({ form: formData, ...options }),
+    });
   }
 
   assets(options) {

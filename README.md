@@ -168,6 +168,25 @@ cockpit.image(path, [
 | **regionGet**   | `(regionName, options)` | Promise |
 | **regionData**  | `(regionName, options)` | Promise |
 
+## Forms
+
+| Method         | Args                  | Return |
+| -------------- | --------------------- | ------ |
+| **formSubmit** | `(formName, options)` | -      |
+
+<details><summary><b>Example:</b></summary><p>
+
+```js
+cockpit.formSubmit('contacts',
+  {
+    form: { field1: 'value1', field2: 'value2' },
+    ...options,
+  }
+);
+```
+
+</p></details>
+
 # Real-time
 
 ## Simple Example
