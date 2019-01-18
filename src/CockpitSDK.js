@@ -284,12 +284,13 @@ class CockpitSDK {
   }
 
   // @param {string} formName
-  // @param {Request} data
-  formSubmit(formName, data) {
+  // @param {Request} formData
+  // @param {Request} options
+  formSubmit(formName, formData, options = {}) {
     return this.fetchData(`${this.endpoints.formsSubmit}${formName}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: this.stringifyOptions(data),
+      body: this.stringifyOptions({ form: formData, ...options }),
     });
   }
 
