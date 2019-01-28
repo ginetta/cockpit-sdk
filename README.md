@@ -177,11 +177,13 @@ cockpit.image(path, [
 <details><summary><b>Example:</b></summary><p>
 
 ```js
-cockpit.formSubmit('contacts',
+cockpit.formSubmit(
+  'contacts',
   {
-    form: { field1: 'value1', field2: 'value2' },
-    ...options,
-  }
+    field1: 'value1',
+    field2: 'value2',
+  },
+  options,
 );
 ```
 
