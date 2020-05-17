@@ -12,9 +12,9 @@ test('Expect Cockpit.image to return array of numbers', () => {
 
   expect(result).toBe(
     '' +
-      'foo/api/cockpit/image?d=1&lang=biz&o=1&src=bux&token=bar&w=10 10w, ' +
-      'foo/api/cockpit/image?d=1&lang=biz&o=1&src=bux&token=bar&w=20 20w, ' +
-      'foo/api/cockpit/image?d=1&lang=biz&o=1&src=bux&token=bar&w=30 30w',
+      'foo/api/cockpit/image?d=1&lang=biz&o=1&src=bux&w=10 10w, ' +
+      'foo/api/cockpit/image?d=1&lang=biz&o=1&src=bux&w=20 20w, ' +
+      'foo/api/cockpit/image?d=1&lang=biz&o=1&src=bux&w=30 30w',
   );
 });
 
@@ -32,7 +32,7 @@ test('Expect Cockpit.image to return height', () => {
   const result = cockpit.image('bux', imageOptions);
 
   expect(result).toBe(
-    'foo/api/cockpit/image?d=1&h=100&lang=biz&o=1&src=bux&token=bar&w=200',
+    'foo/api/cockpit/image?d=1&h=100&lang=biz&o=1&src=bux&w=200',
   );
 });
 
@@ -51,7 +51,7 @@ test('Expect Cockpit.image with pixel ratio', () => {
   const result = cockpit.image('bux', imageOptions);
 
   expect(result).toBe(
-    'foo/api/cockpit/image?d=1&h=200&lang=biz&o=1&src=bux&token=bar&w=400',
+    'foo/api/cockpit/image?d=1&h=200&lang=biz&o=1&src=bux&w=400',
   );
 });
 
@@ -75,8 +75,8 @@ test('Expect Cockpit.image with array to return height', () => {
 
   expect(result).toBe(
     '' +
-      'foo/api/cockpit/image?d=1&h=100&lang=biz&o=1&src=bux&token=bar&w=200 200w, ' +
-      'foo/api/cockpit/image?d=1&h=10&lang=biz&o=1&src=bux&token=bar&w=20 20w',
+      'foo/api/cockpit/image?d=1&h=100&lang=biz&o=1&src=bux&w=200 200w, ' +
+      'foo/api/cockpit/image?d=1&h=10&lang=biz&o=1&src=bux&w=20 20w',
   );
 });
 
@@ -102,8 +102,8 @@ test('Expect Cockpit.image with array to return pixel ratio', () => {
 
   expect(result).toBe(
     '' +
-      'foo/api/cockpit/image?d=1&h=200&lang=biz&o=1&src=bux&token=bar&w=400 200w, ' +
-      'foo/api/cockpit/image?d=1&h=20&lang=biz&o=1&src=bux&token=bar&w=40 20w',
+      'foo/api/cockpit/image?d=1&h=200&lang=biz&o=1&src=bux&w=400 200w, ' +
+      'foo/api/cockpit/image?d=1&h=20&lang=biz&o=1&src=bux&w=40 20w',
   );
 });
 
@@ -129,8 +129,8 @@ test('Expect Cockpit.image with array to return different srcSet', () => {
 
   expect(result).toBe(
     '' +
-      'foo/api/cockpit/image?d=1&h=100&lang=biz&o=1&src=bux&token=bar&w=200 1x, ' +
-      'foo/api/cockpit/image?d=1&h=200&lang=biz&o=1&src=bux&token=bar&w=400 2x',
+      'foo/api/cockpit/image?d=1&h=100&lang=biz&o=1&src=bux&w=200 1x, ' +
+      'foo/api/cockpit/image?d=1&h=200&lang=biz&o=1&src=bux&w=400 2x',
   );
 });
 
@@ -147,7 +147,7 @@ test('Expect Cockpit.image to return one filter', () => {
   const result = cockpit.image('bux', imageOptions);
 
   expect(result).toBe(
-    'foo/api/cockpit/image?d=1&lang=biz&o=1&src=bux&token=bar&f[darken]=50',
+    'foo/api/cockpit/image?d=1&lang=biz&o=1&src=bux&f[darken]=50',
   );
 });
 
@@ -165,6 +165,6 @@ test('Expect Cockpit.image to return multiple filters', () => {
   const result = cockpit.image('bux', imageOptions);
 
   expect(result).toBe(
-    'foo/api/cockpit/image?d=1&lang=biz&o=1&src=bux&token=bar&f[darken]=50&f[pixelate]=40&f[desaturate]=true&f[flip]=x',
+    'foo/api/cockpit/image?d=1&lang=biz&o=1&src=bux&f[darken]=50&f[pixelate]=40&f[desaturate]=true&f[flip]=x',
   );
 });
