@@ -18,6 +18,25 @@ test('Expect Cockpit.image to return array of numbers', () => {
   );
 });
 
+test('Expect Cockpit.image to return array of numbers and have the token in the header', () => {
+  const cockpit = new CockpitSDK({
+    host: 'foo',
+    accessToken: 'bar',
+    lang: 'biz',
+    authHeader: true,
+  });
+  const imageOptions = [10, 20, 30];
+
+  const result = cockpit.image('bux', imageOptions);
+
+  expect(result).toBe(
+    '' +
+      'foo/api/cockpit/image?d=1&lang=biz&o=1&src=bux&w=10 10w, ' +
+      'foo/api/cockpit/image?d=1&lang=biz&o=1&src=bux&w=20 20w, ' +
+      'foo/api/cockpit/image?d=1&lang=biz&o=1&src=bux&w=30 30w',
+  );
+});
+
 test('Expect Cockpit.image to return height', () => {
   const cockpit = new CockpitSDK({
     host: 'foo',

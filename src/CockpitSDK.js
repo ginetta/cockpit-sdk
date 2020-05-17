@@ -44,6 +44,7 @@ class CockpitSDK {
     host,
     lang,
     webSocket,
+    authHeader,
     apiEndpoints = {},
     ...rest
   }) {
@@ -55,7 +56,7 @@ class CockpitSDK {
         invalidConfig,
         '\n',
         'Valid keys are:',
-        'accessToken, defaultOptions, fetchInitOptions, host, lang, webSocket',
+        'accessToken, defaultOptions, fetchInitOptions, host, lang, webSocket, authHeader',
       );
 
     this.host = host;
@@ -65,10 +66,14 @@ class CockpitSDK {
     this.endpoints = { ...this.defaultEndpoints, ...apiEndpoints };
     this.accessToken = accessToken;
     this.webSocket = webSocket;
+    this.authHeader = authHeader;
     this.queryParams = {
       lang: this.lang,
-      token: this.accessToken,
     };
+
+    if (!this.authHeader) {
+      this.queryParams.token = this.accessToken;
+    }
 
     if (webSocket) {
       this.setWebsocket(webSocket);
@@ -81,11 +86,14 @@ class CockpitSDK {
       ...this.fetchInitOptions,
     };
 
-    const hostWithToken = `${this.host}${apiPath}?${qs.stringify(
+    if (this.authHeader) {
+      requestInit.headers.Authorization = `Bearer ${this.accessToken}`;
+    }
+    const url = `${this.host}${apiPath}?${qs.stringify(
       this.queryParams,
     )}&${qs.stringify(queryParams)}`;
 
-    return fetch(hostWithToken, requestInit).then(x => x.json());
+    return fetch(url, requestInit).then(x => x.json());
   }
 
   // @param {string} apiPath
