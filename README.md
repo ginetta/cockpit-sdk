@@ -46,6 +46,7 @@ Connecting your project to Cockpit is done by instantiating CockpitSDK. This obj
 | **webSocket**        | Websocket address (if used)                     |
 | **fetchInitOptions** | [Init options](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/fetch#Parameters) to apply on every Fetch request                        |
 | **defaultOptions**   | Options to be applied on every Cockpit fetch    |
+| **authHeader**       | Use the *Authorization* header instead of a query parameter|
 
 <details><summary><b>defaultOptions:</b></summary><p>
 
