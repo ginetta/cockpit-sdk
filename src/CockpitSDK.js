@@ -67,7 +67,6 @@ class CockpitSDK {
     this.webSocket = webSocket;
     this.queryParams = {
       lang: this.lang,
-      token: this.accessToken,
     };
 
     if (webSocket) {
@@ -81,11 +80,12 @@ class CockpitSDK {
       ...this.fetchInitOptions,
     };
 
-    const hostWithToken = `${this.host}${apiPath}?${qs.stringify(
+    requestInit.headers.Authorization = `Bearer ${this.accessToken}`;
+    const url = `${this.host}${apiPath}?${qs.stringify(
       this.queryParams,
     )}&${qs.stringify(queryParams)}`;
 
-    return fetch(hostWithToken, requestInit).then(x => x.json());
+    return fetch(url, requestInit).then(x => x.json());
   }
 
   // @param {string} apiPath
